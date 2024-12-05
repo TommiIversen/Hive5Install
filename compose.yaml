@@ -1,6 +1,4 @@
-﻿version: "3.3"
-
-services:
+﻿services:
   Engine:
     restart: always
     image: 2mmilab/hive5-engine
@@ -11,6 +9,8 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    command: [ "dotnet", "Engine.dll" ]
+
 
   StreamHub:
     restart: always
@@ -25,3 +25,5 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    command: [ "dotnet", "Streamhub.dll" ]
+
