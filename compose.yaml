@@ -1,8 +1,10 @@
-﻿services:
+﻿version: "3.3"
+
+services:
   Engine:
+    restart: always
     image: 2mmilab/hive5-engine
-    ports:
-      - "9001:9001"
+    network_mode: host
     environment:
       - ASPNETCORE_URLS=http://*:9001
     logging:
@@ -11,6 +13,7 @@
         max-file: "10"
 
   StreamHub:
+    restart: always
     image: 2mmilab/hive5-streamhub
     ports:
       - "9000:8080" 
