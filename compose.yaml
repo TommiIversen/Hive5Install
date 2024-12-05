@@ -1,0 +1,24 @@
+﻿services:
+  Engine:
+    image: 2mmilab/hive5-engine
+    ports:
+      - "9001:9001"
+    environment:
+      - ASPNETCORE_URLS=http://*:9001
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  StreamHub:
+    image: 2mmilab/hive5-streamhub
+    ports:
+      - "9000:8080" 
+    environment:
+      #- SIGNALR_URL=http://localhost:9000
+      - DetailedErrors=true
+      #- ASPNETCORE_URLS=http://*:9000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
