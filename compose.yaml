@@ -5,6 +5,9 @@
     network_mode: host
     environment:
       - ASPNETCORE_URLS=http://*:9001
+      - ENGINE_BASE_PATH=/app/data/engine
+    volumes:
+      - /opt/Hive5Data/Engine:/app/data/engine
     logging:
       options:
         max-size: "10m"
@@ -18,9 +21,9 @@
     ports:
       - "9000:8080" 
     environment:
-      #- SIGNALR_URL=http://localhost:9000
-      - DetailedErrors=true
-      #- ASPNETCORE_URLS=http://*:9000
+      - STREAMHUB_BASE_PATH=/app/data/streamhub
+    volumes:
+      - /opt/Hive5Data/StreamHub:/app/data/streamhub
     logging:
       options:
         max-size: "10m"
