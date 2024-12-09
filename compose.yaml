@@ -6,17 +6,22 @@
     environment:
       - ASPNETCORE_URLS=http://*:9001
       - ENGINE_BASE_PATH=/app/data/engine
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     volumes:
       - /opt/Hive5Data/Engine:/app/data/engine
     logging:
       options:
         max-size: "10m"
         max-file: "10"
+    runtime: nvidia
     deploy:
       resources:
         reservations:
           devices:
-            - capabilities: [ gpu ]
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     command: [ "dotnet", "Engine.dll" ]
 
 
