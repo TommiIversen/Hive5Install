@@ -7,7 +7,7 @@
       - ASPNETCORE_URLS=http://*:9001
       - ENGINE_BASE_PATH=/app/data/engine
       - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - NVIDIA_DRIVER_CAPABILITIES=all
     volumes:
       - /opt/Hive5Data/Engine:/app/data/engine
     logging:
