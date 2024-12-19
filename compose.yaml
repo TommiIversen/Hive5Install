@@ -34,7 +34,7 @@
       - "9000:8080" 
     environment:
       - STREAMHUB_BASE_PATH=/app/data/streamhub
-      - ALLOWED_IPS=10.0.0.0,172.16.0.0,192.168.0.0,172.18.0.0,172.19.0.0
+      - ALLOWED_IPS=10.65.0.0,172.16.0.0,192.168.0.0,172.18.0.0,172.19.0.0
     volumes:
       - /opt/Hive5Data/StreamHub:/app/data/streamhub
     logging:
