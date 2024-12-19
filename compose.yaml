@@ -4,7 +4,7 @@
     image: 2mmilab/hive5-engine:latest
     network_mode: host
     environment:
-      - ASPNETCORE_URLS=http://*:9001
+      - ASPNETCORE_URLS=http://*:8999
       - ENGINE_BASE_PATH=/app/data/engine
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
