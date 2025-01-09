@@ -29,11 +29,11 @@ sudo apt update
 sudo apt install -y docker-ce
 
 # Manage Docker as a non-root user
-sudo groupadd docker
-echo "Add user docker group"
-sudo usermod -aG docker ${USER}
-echo "create new docker group"
-su - ${USER} -c "newgrp docker"
+#sudo groupadd docker
+#echo "Add user docker group"
+#sudo usermod -aG docker ${USER}
+#echo "create new docker group"
+#su - ${USER} -c "newgrp docker"
 
 # Install latest Docker Compose version
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
