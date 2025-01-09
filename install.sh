@@ -42,9 +42,7 @@ sudo groupadd docker
 #echo "Add user docker group"
 sudo usermod -aG docker ${USER}
 #echo "Create new docker group"
-if groups | grep -q '\bdocker\b'; then
-  newgrp docker
-fi
+# newgrp docker
 
 
 echo "INSTALLING DOCKER COMPOSE"
@@ -55,9 +53,9 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 
-echo "INSTALLING NVIDIA DRIVERS/TOOLKIT"
-# Configure the production repository
+echo "INSTALLING NVIDIA CONTAINER TOOLKIT"
 # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#linux-distributions
+# Configure the production repository
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
@@ -67,22 +65,28 @@ curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dear
 sudo apt-get update
 
 # Install the NVIDIA Container Toolkit packages
-sudo apt-get -y install nvidia-container-toolkit
+sudo apt-get install -y nvidia-container-toolkit
 
-# Configure the container runtime
+
+# Configure the container runtime by using the nvidia-ctk command
 sudo nvidia-ctk runtime configure --runtime=docker
 
 # Restart the Docker daemon
 sudo systemctl restart docker
 
+
 # Install kernel headers
+sudo apt-get update
 sudo apt-get install -y linux-headers-$(uname -r)
 
-# Install CUDA repository public GPG key
-# distribution=$(. /etc/os-release;echo $ID$VERSION_ID | sed -e 's/\.//g')
+
+echo "ISNTALLING CUDA TOOLKIT"
+# https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=24.04&target_type=deb_network
+# Install CUDA Toolkit installer
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
-
-# Opdater APT repository cache og installer CUDA drivers
 sudo apt-get update
-sudo apt-get -y install cuda-drivers
+sudo apt-get -y install cuda-toolkit-12-6
+
+# Install open kernel module / Driver
+sudo apt-get install -y nvidia-open
