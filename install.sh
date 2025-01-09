@@ -1,40 +1,42 @@
 #!/bin/bash
 
 # Create base directories
-sudo mkdir -p /opt/Hive5Data/Engine
-sudo mkdir -p /opt/Hive5Data/StreamHub
+mkdir -p /opt/Hive5Data/Engine
+mkdir -p /opt/Hive5Data/StreamHub
 # Make logged in user owner
-sudo chown -R $USER:$USER /opt/Hive5Data
+chown -R $USER:$USER /opt/Hive5Data
 
 
 # Update packages
 sudo apt update
 
-# Installer nødvendige pakker
+# Install required packages
 sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 
-# Tilføj Docker's officielle GPG-nøgle
+# Uninstall old Docker installation
+sudo apt-get purge -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+
+# Add Dockers official GPG Key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-# Tilføj Docker's repository
+# Add Dockers repository
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-# Opdater pakkeindeks igen efter at have tilføjet Docker's repository
+# Update packages
 sudo apt update
 
-# Installer Docker
+# Install Docker
 sudo apt install -y docker-ce
 
-# Gør det muligt for din bruger at køre Docker-kommandoer (erstat 'username' med dit eget brugernavn)
+# Manage Docker as a non-root user
 sudo groupadd docker
-echo "add user docker group"
+echo "Add user docker group"
 sudo usermod -aG docker ${USER}
 echo "create new docker group"
-newgrp docker
+su - ${USER} -c "newgrp docker"
 
-# Installer Docker Compose
-# Hent den nyeste version af Docker Compose (erstat '1.29.2' med den ønskede version)
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# Install latest Docker Compose version
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 # Gør Docker Compose eksekverbar
 sudo chmod +x /usr/local/bin/docker-compose
