@@ -27,7 +27,9 @@ sudo apt install -y docker-ce
 
 # Gør det muligt for din bruger at køre Docker-kommandoer (erstat 'username' med dit eget brugernavn)
 sudo groupadd docker
+echo "add user docker group"
 sudo usermod -aG docker ${USER}
+echo "create new docker group"
 newgrp docker
 
 # Installer Docker Compose
