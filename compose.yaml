@@ -1,7 +1,7 @@
 ﻿services:
   Engine:
     restart: always
-    image: 2mmilab/hive5-engine:latest
+    image: 2mmilab/hive5-engine:2204
     network_mode: host
     environment:
       - ASPNETCORE_URLS=http://*:8999
