@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Opret basemappe
+# Create base directories
 sudo mkdir -p /opt/Hive5Data/Engine
 sudo mkdir -p /opt/Hive5Data/StreamHub
-# Giv adgang til den aktuelle bruger
+# Make logged in user owner
 sudo chown -R $USER:$USER /opt/Hive5Data
 
 
-# Opdater systemets pakkeindeks
+# Update packages
 sudo apt update
 
 # Installer nødvendige pakker
