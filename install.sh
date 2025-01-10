@@ -4,7 +4,7 @@
 mkdir -p /opt/Hive5Data/Engine
 mkdir -p /opt/Hive5Data/StreamHub
 # Make logged in user owner
-chown -R $USER:$USER /opt/Hive5Data
+sudo chown -R $USER:$USER /opt/Hive5Data
 
 
 
@@ -76,8 +76,8 @@ sudo systemctl restart docker
 
 
 # Install kernel headers
-sudo apt-get update
 sudo apt-get install -y linux-headers-$(uname -r)
+sudo apt-get update
 
 
 echo "ISNTALLING CUDA TOOLKIT"
